@@ -5,6 +5,8 @@ import theme from './theme';
 import styles from './styles';
 import Footer from './Footer';
 import Header from './Header';
+import { checkIsAuthenticated } from '../../store/selectors/authSelector';
+import { useSelector } from 'react-redux';
 
 type AppProps = {
     children: any;
@@ -12,17 +14,31 @@ type AppProps = {
 };
 
 function App({ children, classes }: AppProps) {
+    const isAuthenticated = useSelector(checkIsAuthenticated);
     return (
         <Router>
             <MuiThemeProvider theme={theme}>
                 <div className={classes.fill}>
-                    <header>
-                        <Header />
-                    </header>
-                    <main className={classes.content}>{children}</main>
-                    <footer className={classes.footer}>
-                        <Footer></Footer>
-                    </footer>
+                    {isAuthenticated && (
+                        <header className={classes.header}>
+                            <Header />
+                        </header>
+                    )}
+                    <main
+                        style={
+                            isAuthenticated
+                                ? { marginTop: 60, marginBottom: 55 }
+                                : {}
+                        }
+                        className={classes.content}
+                    >
+                        {children}
+                    </main>
+                    {isAuthenticated && (
+                        <footer className={classes.footer}>
+                            <Footer></Footer>
+                        </footer>
+                    )}
                 </div>
             </MuiThemeProvider>
         </Router>

@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function Header() {
     return (
-        <AppBar position="static">
+        <AppBar position="fixed">
             <Toolbar>
                 <Typography style={{ flexGrow: 1 }} variant="h6">
                     News

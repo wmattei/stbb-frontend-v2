@@ -1,4 +1,4 @@
-import { withStyles, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import React from 'react';
 import styles from './styles';
 
@@ -7,11 +7,7 @@ type HomeProps = {
 };
 
 function HomeView({ classes }: HomeProps) {
-    return (
-        <div style={{ height: 800 }}>
-            <div>asdasdads</div>
-        </div>
-    );
+    return <div>Home</div>;
 }
 
 export default withStyles(styles)(HomeView);
