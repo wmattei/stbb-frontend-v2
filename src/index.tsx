@@ -6,9 +6,21 @@ import App from './containers/Layout/App';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 import Routes from './routes/Routes';
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
+import ReduxToastr from 'react-redux-toastr';
 
 ReactDOM.render(
     <Provider store={configureStore()}>
+        <ReduxToastr
+            timeOut={4000}
+            newestOnTop={false}
+            preventDuplicates
+            getState={(state) => state.toastr}
+            transitionIn="fadeIn"
+            transitionOut="fadeOut"
+            progressBar
+            closeOnToastrClick
+        />
         <React.StrictMode>
             <App>
                 <Routes />

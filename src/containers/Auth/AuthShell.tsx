@@ -8,6 +8,8 @@ const style = {
     backgroundPositionX: 'center',
     backgroundSize: '100% 100%',
     height: '100vh',
+    maxHeight: 800,
+    minHeight: 600
 };
 
 const AuthShell = (Page: any) => {
@@ -20,7 +22,7 @@ const AuthShell = (Page: any) => {
                     src="assets/images/logo_simple.png"
                 />
             </Box>
-            <div style={{ margin: 24, marginTop: 80 }}>
+            <div style={{ margin: 24, marginTop: 100 }}>
                 <ReactCSSTransitionGroup
                     transitionAppear={true}
                     transitionAppearTimeout={600}
