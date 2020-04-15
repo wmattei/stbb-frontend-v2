@@ -1,12 +1,12 @@
-import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { MuiThemeProvider, withStyles } from '@material-ui/core';
-import theme from './theme';
-import styles from './styles';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { checkIsAuthenticated } from '../../store/selectors/authSelector';
 import Footer from './Footer';
 import Header from './Header';
-import { checkIsAuthenticated } from '../../store/selectors/authSelector';
-import { useSelector } from 'react-redux';
+import styles from './styles';
+import theme from './theme';
 
 type AppProps = {
     children: any;

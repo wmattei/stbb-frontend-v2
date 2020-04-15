@@ -8,6 +8,14 @@ import configureStore from './store/configureStore';
 import Routes from './routes/Routes';
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 import ReduxToastr from 'react-redux-toastr';
+import { LinearProgress } from '@material-ui/core';
+import { usePromiseTracker } from 'react-promise-tracker';
+
+const LoadingInterceptor = (props) => {
+    const { promiseInProgress } = usePromiseTracker();
+
+    return promiseInProgress ? <LinearProgress /> : <></>;
+};
 
 ReactDOM.render(
     <Provider store={configureStore()}>
@@ -22,6 +30,7 @@ ReactDOM.render(
             closeOnToastrClick
         />
         <React.StrictMode>
+            <LoadingInterceptor />
             <App>
                 <Routes />
             </App>

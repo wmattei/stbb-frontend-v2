@@ -22,16 +22,25 @@ export enum GenderEnum {
 }
 
 export type Subject = {
+    id?: string;
     name?: string;
     workLoad?: number;
     credits?: number;
     price?: number;
+};
+
+export type Class = {
+    id?: string;
+    name?: string;
     teacher?: User;
-    students: User[]
-}
+    subject: Subject;
+    students?: User[];
+};
 
 export type User = {
+    id?: string;
     email?: string;
+    password?: string;
     role?: UserRoleEnum;
     lastLogin?: Date;
     name?: string;
@@ -48,9 +57,9 @@ export type User = {
     dateOfEnd?: Date;
     gender?: GenderEnum;
     observation?: string;
-    subjects: Subject[];
-    isRegisterCompleted: boolean;
-    isNewStudent: boolean;
-    isProfileComplete: boolean;
-    avatar: string;
-}
+    isRegisterCompleted?: boolean;
+    isNewStudent?: boolean;
+    isProfileComplete?: boolean;
+    avatar?: string;
+    classes?: Class[];
+};

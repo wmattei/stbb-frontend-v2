@@ -8,6 +8,13 @@ class AuthApi {
             data: { email, password },
         });
     }
+
+    static whoami() {
+        return Axios({
+            method: 'GET',
+            url: '/auth/whoami',
+        }).catch((err) => err.response);
+    }
 }
 
 export default AuthApi;

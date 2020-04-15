@@ -1,5 +1,5 @@
 import { User } from '../../constants/types';
-import { LOGIN, LOGOUT } from '../actions/actionTypes';
+import { LOGIN, LOGOUT, SET_CURRENT_USER } from '../actions/actionTypes';
 
 type AuthState = {
     isAuthenticated: Boolean | null | undefined;
@@ -23,8 +23,14 @@ const authReducer = (state: AuthState = initialState, action) => {
                 ...state,
                 isAuthenticated: false,
             };
+        case SET_CURRENT_USER:
+            return {
+                ...state,
+                currentUser: action.payload,
+                isAuthenticated: true,
+            };
         default:
-            return state
+            return state;
     }
 };
 

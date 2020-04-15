@@ -1,12 +1,17 @@
 import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { logout } from '../../store/actions/authActions';
+import { getTitle } from '../../store/selectors/appSelector';
 
 export default function Header() {
     const dispatch = useDispatch();
     const history = useHistory();
+    const title = useSelector(getTitle);
+    useEffect(() => {
+        document.title = title;
+    }, [title]);
 
     const logOut = () => {
         dispatch(logout());
@@ -18,7 +23,7 @@ export default function Header() {
         <AppBar position="fixed">
             <Toolbar>
                 <Typography style={{ flexGrow: 1 }} variant="h6">
-                    STBB
+                    {title}
                 </Typography>
                 <Button onClick={logOut} color="inherit">
                     LOGOUT

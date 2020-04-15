@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-form';
 import RoundedField from '../../components/RoundedInput';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
@@ -7,27 +7,47 @@ import { Box, Button } from '@material-ui/core';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import AuthApi from '../../api/authApi';
-import { setup } from '../../api/config';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { login } from '../../store/actions/authActions';
+import { login, logout, setCurrentUser } from '../../store/actions/authActions';
+import { trackPromise } from 'react-promise-tracker';
 
 export function Login() {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const onSubmit = (values) => {
-        AuthApi.login(values.email, values.password).then((res) => {
-            setup(res.data.accessToken);
-            dispatch(login());
-            history.push('/');
-        });
+    const fetchMe = async () => {
+        const result = await trackPromise(AuthApi.whoami());
+
+        if (result.status === 200 && result.data) {
+            console.log();
+            dispatch(setCurrentUser(result.data.data));
+        }
+
+        if (result.status === 401) {
+            history.replace('/login');
+        }
     };
 
-    const { Form } = useForm({
+    useEffect(() => {
+        dispatch(logout());
+        // eslint-disable-next-line
+    }, []);
+
+    const onSubmit = (values) => {
+        trackPromise(
+            AuthApi.login(values.email, values.password).then((res) => {
+                localStorage.setItem('token', res.data.data.accessToken);
+                dispatch(login());
+                fetchMe();
+                history.push('/');
+            })
+        );
+    };
+
+    const { Form, values } = useForm({
         onSubmit,
     });
-
     const [showPassword, setShowPassword] = useState(false);
 
     return (
@@ -62,6 +82,7 @@ export function Login() {
                 </Box>
                 <Box py={1}>
                     <Button
+                        disabled={!values.email || !values.password}
                         style={{ width: '100%' }}
                         variant="contained"
                         type="submit"
