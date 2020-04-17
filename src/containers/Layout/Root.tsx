@@ -36,7 +36,11 @@ export default function Root() {
     return (
         <div>
             <Route exact path="/" component={PageShell(HomeView)}></Route>
-            <Route exact path="/class/:subjectId" component={PageShell(TeacherClass)}></Route>
+            <Route
+                exact
+                path="/class/:classId"
+                component={PageShell(TeacherClass)}
+            ></Route>
             <Route
                 exact
                 path="/subjects"

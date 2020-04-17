@@ -29,12 +29,31 @@ export type Subject = {
     price?: number;
 };
 
+export type FileModel = {
+    id?: string;
+    createdAt?: string;
+    originalPath?: string;
+    croppedPath?: string;
+    x?: number;
+    y?: number;
+    width?: number;
+    height?: number;
+    rotate?: number;
+    name?: string;
+    gallery?: string;
+    mimeType?: string;
+    key?: string;
+    class?: Class;
+    description?: string;
+};
+
 export type Class = {
     id?: string;
     name?: string;
     teacher?: User;
     subject: Subject;
     students?: User[];
+    documents?: User[];
 };
 
 export type User = {

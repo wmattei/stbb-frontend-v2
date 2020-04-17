@@ -1,4 +1,4 @@
-const styles = () => ({
+const styles = (theme) => ({
     subjectCard: {
         padding: 12,
         marginBottom: 12,
@@ -8,6 +8,23 @@ const styles = () => ({
     expansion: {
         padding: 0,
         background: 'white',
+    },
+    documentCard: {
+        marginBottom: 10,
+    },
+    caption: { color: 'grey' },
+    createdAt: {
+        paddingLeft: 10,
+        color: 'grey',
+    },
+    deleteButton: {
+        background: theme.palette.error.main,
+    },
+    downloadBtn: {
+        marginRight: 10,
+    },
+    tcWhite: {
+        color: 'white',
     },
 });
 

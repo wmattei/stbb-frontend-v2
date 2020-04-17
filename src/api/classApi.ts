@@ -7,6 +7,13 @@ class ClassApi {
             url: `/classes/find-by-teacher/${teacherId}`
         }).then(res => res.data);
     }
+    
+    static findById(id) {
+        return Axios({
+            method: 'GET',
+            url: `/classes/${id}`
+        }).then(res => res.data);
+    }
 }
 
 export default ClassApi;
