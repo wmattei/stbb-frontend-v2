@@ -7,7 +7,7 @@ import DocumentView from '../Document/DocumentView';
 import AuthApi from '../../api/authApi';
 import { useDispatch } from 'react-redux';
 import { setCurrentUser } from '../../store/actions/authActions';
-import TeacherClass from '../Home/TeacherClass';
+import ClassRoom from '../Home/ClassRoom';
 
 export default function Root() {
     const dispatch = useDispatch();
@@ -19,7 +19,6 @@ export default function Root() {
             const result = await AuthApi.whoami();
 
             if (result.status === 200 && result.data) {
-                console.log();
                 dispatch(setCurrentUser(result.data.data));
             }
 
@@ -39,7 +38,7 @@ export default function Root() {
             <Route
                 exact
                 path="/class/:classId"
-                component={PageShell(TeacherClass)}
+                component={PageShell(ClassRoom)}
             ></Route>
             <Route
                 exact

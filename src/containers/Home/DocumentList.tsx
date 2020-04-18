@@ -18,10 +18,16 @@ import styles from './styles';
 type DocumentListProps = {
     classes: any;
     documents: FileModel[];
-    addDocument: Function;
+    onDelete: any;
+    isTeacher: boolean;
 };
 
-function DocumentList({ classes, documents, addDocument }: DocumentListProps) {
+function DocumentList({
+    classes,
+    documents,
+    onDelete,
+    isTeacher,
+}: DocumentListProps) {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -30,7 +36,15 @@ function DocumentList({ classes, documents, addDocument }: DocumentListProps) {
             return <PictureAsPdfIcon />;
         }
         if (document.mimeType?.startsWith('image')) {
-            return <img style={{objectFit: 'cover'}} alt={document.name} src={document.originalPath} width="50" height="50" />;
+            return (
+                <img
+                    style={{ objectFit: 'cover' }}
+                    alt={document.name}
+                    src={document.originalPath}
+                    width="50"
+                    height="50"
+                />
+            );
         }
     };
 
@@ -49,15 +63,23 @@ function DocumentList({ classes, documents, addDocument }: DocumentListProps) {
                             flexDirection="row"
                             alignItems="center"
                         >
-                            {!isMobile && (
-                                <Box mr={2}>{getPreview(document)}</Box>
-                            )}
-                            <Box display="flex" flexDirection="column">
-                                <Box display="flex" flexDirection="row">
+                            <Box mr={2}>{getPreview(document)}</Box>
+
+                            <Box
+                                display="flex"
+                                flexDirection="column"
+                                width="100%"
+                            >
+                                <Box
+                                    display="flex"
+                                    flexDirection="row"
+                                    justifyContent="space-between"
+                                >
                                     <Box
                                         display="flex"
                                         flexDirection="column"
-                                        alignItems="center"
+                                        alignItems="start"
+                                        width="80%"
                                     >
                                         <Box display="flex" flexDirection="row">
                                             <Typography
@@ -79,9 +101,15 @@ function DocumentList({ classes, documents, addDocument }: DocumentListProps) {
                                                 )}
                                             </Typography>
                                         </Box>
-                                        <Typography variant="subtitle2">
-                                            {document.name}
-                                        </Typography>
+
+                                        {isTeacher && (
+                                            <Typography
+                                                variant="subtitle2"
+                                                noWrap
+                                            >
+                                                {document.name}
+                                            </Typography>
+                                        )}
                                     </Box>
                                     <Box ml={2}>
                                         <Button
@@ -95,21 +123,28 @@ function DocumentList({ classes, documents, addDocument }: DocumentListProps) {
                                             {!isMobile && <span>DOWNLOAD</span>}
                                             <GetAppIcon color="action" />
                                         </Button>
-                                        <Button
-                                            variant="contained"
-                                            className={classes.deleteButton}
-                                        >
-                                            {!isMobile && (
-                                                <span
+                                        {isTeacher && (
+                                            <Button
+                                                onClick={() =>
+                                                    onDelete(document.id)
+                                                }
+                                                variant="contained"
+                                                className={classes.deleteButton}
+                                            >
+                                                {!isMobile && (
+                                                    <span
+                                                        className={
+                                                            classes.tcWhite
+                                                        }
+                                                    >
+                                                        ELIMINAR
+                                                    </span>
+                                                )}
+                                                <DeleteIcon
                                                     className={classes.tcWhite}
-                                                >
-                                                    ELIMINAR
-                                                </span>
-                                            )}
-                                            <DeleteIcon
-                                                className={classes.tcWhite}
-                                            />
-                                        </Button>
+                                                />
+                                            </Button>
+                                        )}
                                     </Box>
                                 </Box>
                                 <Typography>
@@ -120,9 +155,6 @@ function DocumentList({ classes, documents, addDocument }: DocumentListProps) {
                     </Card>
                 );
             })}
-            <Button variant="contained" color="primary">
-                SUBIR NUEVO DOCUMENTO
-            </Button>
         </div>
     );
 }

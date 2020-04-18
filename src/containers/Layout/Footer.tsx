@@ -1,13 +1,13 @@
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Home from '@material-ui/icons/Home';
-import InsertDriveFile from '@material-ui/icons/InsertDriveFile';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import React from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-import { getCurrentUser } from '../../store/selectors/authSelector';
 import { useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
 import { UserRoleEnum } from '../../constants/types';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { getCurrentUser } from '../../store/selectors/authSelector';
+
 export default function Footer() {
     const history = useHistory();
     const route = useLocation();
@@ -34,8 +34,8 @@ export default function Footer() {
                 />
                 <BottomNavigationAction
                     value="/documents"
-                    label="Documentos"
-                    icon={<InsertDriveFile />}
+                    label="Mi cuenta"
+                    icon={<AccountCircleIcon />}
                 />
             </BottomNavigation>
         );
@@ -65,11 +65,42 @@ export default function Footer() {
         );
     };
 
+    const renderAdminButtons = () => {
+        return (
+            <BottomNavigation
+                value={route.pathname}
+                onChange={(event, newValue) => {
+                    history.push(newValue);
+                }}
+                showLabels
+            >
+                <BottomNavigationAction
+                    value="/subjects"
+                    label="Asignaturas"
+                    icon={<LibraryBooks />}
+                />
+                <BottomNavigationAction
+                    value="/"
+                    label="Home"
+                    icon={<Home />}
+                />
+                <BottomNavigationAction
+                    disabled
+                    value="/profile"
+                    label="Mi cuenta"
+                    icon={<AccountCircleIcon />}
+                />
+            </BottomNavigation>
+        );
+    };
+
     switch (currentUser.role) {
         case UserRoleEnum.STUDENT:
             return renderStudentButtons();
         case UserRoleEnum.TEACHER:
             return renderTeacherButtons();
+        case UserRoleEnum.ADMIN:
+            return renderAdminButtons();
 
         default:
             return <div></div>;

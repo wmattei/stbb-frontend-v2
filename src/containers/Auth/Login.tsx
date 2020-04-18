@@ -20,7 +20,6 @@ export function Login() {
         const result = await trackPromise(AuthApi.whoami());
 
         if (result.status === 200 && result.data) {
-            console.log();
             dispatch(setCurrentUser(result.data.data));
         }
 
