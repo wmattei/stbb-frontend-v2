@@ -40,7 +40,9 @@ function ClassRoom({ classes }: ClassRoomProps) {
 
     const currentUser = useSelector(getCurrentUser);
 
-    const isTeacher = currentUser.role === UserRoleEnum.TEACHER;
+    const isTeacher =
+        currentUser.role === UserRoleEnum.TEACHER ||
+        currentUser.role === UserRoleEnum.ADMIN;
 
     const routeParams = useParams<any>();
 
@@ -72,12 +74,14 @@ function ClassRoom({ classes }: ClassRoomProps) {
     const deleteDocument = () => {
         const id = deletedRequestDocumentId;
         setDeletedRequestDocumentId(null);
-        ClassApi.deleteDocument(id).then(() => {
-            const newDocuments = currentClass?.documents.filter(
-                (doc) => doc.id !== id
-            );
-            setCurrentClass({ ...currentClass, documents: newDocuments });
-        });
+        trackPromise(
+            ClassApi.deleteDocument(id).then(() => {
+                const newDocuments = currentClass?.documents.filter(
+                    (doc) => doc.id !== id
+                );
+                setCurrentClass({ ...currentClass, documents: newDocuments });
+            })
+        );
     };
 
     const getTotalStudents = () => {
@@ -101,6 +105,7 @@ function ClassRoom({ classes }: ClassRoomProps) {
                         value="documents"
                     />
                     <Tab
+                        disabled
                         label={`${
                             isTeacher ? 'Alumnos' : 'Compañeros'
                         } (${getTotalStudents()})`}

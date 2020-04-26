@@ -12,9 +12,12 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
 import { formatRelative } from 'date-fns';
 import { es } from 'date-fns/locale';
-import React from 'react';
+import React, { useState } from 'react';
 import { FileModel } from '../../constants/types';
 import styles from './styles';
+import ChatIcon from '@material-ui/icons/Chat';
+import Comments from './Comments';
+
 type DocumentListProps = {
     classes: any;
     documents: FileModel[];
@@ -30,6 +33,8 @@ function DocumentList({
 }: DocumentListProps) {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+    const [documentChatId, setDocumentChatId] = useState<any>(null);
 
     const getPreview = (document: FileModel) => {
         if (document.mimeType?.endsWith('pdf')) {
@@ -65,21 +70,17 @@ function DocumentList({
                         >
                             <Box mr={2}>{getPreview(document)}</Box>
 
-                            <Box
-                                display="flex"
-                                flexDirection="column"
-                                width="100%"
-                            >
+                            <Box display="flex" flexDirection="column" width="100%">
                                 <Box
                                     display="flex"
                                     flexDirection="row"
                                     justifyContent="space-between"
+
                                 >
                                     <Box
                                         display="flex"
                                         flexDirection="column"
                                         alignItems="start"
-                                        width="80%"
                                     >
                                         <Box display="flex" flexDirection="row">
                                             <Typography
@@ -103,18 +104,22 @@ function DocumentList({
                                         </Box>
 
                                         {isTeacher && (
-                                            <Typography
-                                                variant="subtitle2"
-                                                noWrap
-                                            >
+                                            <Typography variant="subtitle2">
                                                 {document.name}
                                             </Typography>
                                         )}
                                     </Box>
-                                    <Box ml={2}>
+                                    <Box
+                                        ml={2}
+                                        display="flex"
+                                        flexDirection={
+                                            isMobile ? 'column' : 'row'
+                                        }
+                                        justifyContent="flex-end"
+                                    >
                                         <Button
                                             variant="outlined"
-                                            className={classes.downloadBtn}
+                                            className={classes.actionBtn}
                                             onClick={() =>
                                                 (window.location.href =
                                                     document.originalPath || '')
@@ -145,6 +150,26 @@ function DocumentList({
                                                 />
                                             </Button>
                                         )}
+
+                                        <Button
+                                            onClick={() =>
+                                                setDocumentChatId(document.id)
+                                            }
+                                            variant="contained"
+                                            color="secondary"
+                                            className={classes.actionBtn}
+                                        >
+                                            {!isMobile && (
+                                                <span
+                                                    className={classes.tcWhite}
+                                                >
+                                                    COMENTARIOS
+                                                </span>
+                                            )}
+                                            <ChatIcon
+                                                className={classes.tcWhite}
+                                            />
+                                        </Button>
                                     </Box>
                                 </Box>
                                 <Typography>
@@ -155,6 +180,12 @@ function DocumentList({
                     </Card>
                 );
             })}
+            {documentChatId && (
+                <Comments
+                    onCancel={() => setDocumentChatId(null)}
+                    documentId={documentChatId}
+                ></Comments>
+            )}
         </div>
     );
 }

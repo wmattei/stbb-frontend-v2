@@ -6,6 +6,7 @@ import { getCurrentUser } from '../../store/selectors/authSelector';
 import { UserRoleEnum } from '../../constants/types';
 import TeacherHome from './TeacherHome';
 import { setTitle, setBackButtonVisibility } from '../../store/actions/appActions';
+import { Redirect } from 'react-router-dom';
 
 type HomeProps = {
     classes: {};
@@ -22,6 +23,8 @@ function HomeView({ classes }: HomeProps) {
     switch (currentUser.role) {
         case UserRoleEnum.TEACHER:
             return <TeacherHome teacher={currentUser} />;
+        case UserRoleEnum.STUDENT:
+            return <Redirect to="/subjects" />;
 
         default:
             return <div>Home</div>;

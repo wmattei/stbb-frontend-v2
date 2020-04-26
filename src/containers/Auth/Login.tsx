@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useForm } from 'react-form';
 import RoundedField from '../../components/RoundedInput';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
@@ -11,6 +10,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login, logout, setCurrentUser } from '../../store/actions/authActions';
 import { trackPromise } from 'react-promise-tracker';
+import { Form } from '@unform/web';
 
 export function Login() {
     const history = useHistory();
@@ -44,18 +44,15 @@ export function Login() {
         );
     };
 
-    const { Form, values } = useForm({
-        onSubmit,
-    });
     const [showPassword, setShowPassword] = useState(false);
 
     return (
         <div>
-            <Form>
+            <Form onSubmit={onSubmit}>
                 <Box py={1}>
                     <RoundedField
                         label="E-mail"
-                        field="email"
+                        name="email"
                         type="email"
                         startIcon={<MailOutlineIcon />}
                     />
@@ -63,7 +60,7 @@ export function Login() {
                 <Box py={1}>
                     <RoundedField
                         label="Contraseña"
-                        field="password"
+                        name="password"
                         type={showPassword ? 'text' : 'password'}
                         startIcon={<VpnKeyIcon />}
                         endIcon={
@@ -81,7 +78,7 @@ export function Login() {
                 </Box>
                 <Box py={1}>
                     <Button
-                        disabled={!values.email || !values.password}
+                        // disabled={!values.email || !values.password}
                         style={{ width: '100%' }}
                         variant="contained"
                         type="submit"

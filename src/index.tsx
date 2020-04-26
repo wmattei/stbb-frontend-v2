@@ -14,7 +14,7 @@ import { usePromiseTracker } from 'react-promise-tracker';
 const LoadingInterceptor = (props) => {
     const { promiseInProgress } = usePromiseTracker();
 
-    return promiseInProgress ? <LinearProgress /> : <></>;
+    return promiseInProgress ? <LinearProgress color="secondary" /> : <></>;
 };
 
 ReactDOM.render(
@@ -22,7 +22,6 @@ ReactDOM.render(
         <ReduxToastr
             timeOut={4000}
             newestOnTop={false}
-            preventDuplicates
             getState={(state) => state.toastr}
             transitionIn="fadeIn"
             transitionOut="fadeOut"

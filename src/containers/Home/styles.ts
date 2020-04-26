@@ -19,8 +19,9 @@ const styles = (theme) => ({
     },
     deleteButton: {
         background: theme.palette.error.main,
+        marginRight: 10
     },
-    downloadBtn: {
+    actionBtn: {
         marginRight: 10,
     },
     tcWhite: {

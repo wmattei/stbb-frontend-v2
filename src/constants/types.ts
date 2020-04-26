@@ -30,7 +30,7 @@ export type Subject = {
 };
 
 export type FileModel = {
-    id?: string;
+    id: string;
     createdAt?: string;
     originalPath?: string;
     croppedPath?: string;
@@ -81,4 +81,12 @@ export type User = {
     isProfileComplete?: boolean;
     avatar?: string;
     classes?: Class[];
+};
+
+export type Pagination = {
+    totalItems: number;
+    itemCount: number;
+    itemsPerPage: number;
+    totalPages: number;
+    currentPage: number;
 };

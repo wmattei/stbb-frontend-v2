@@ -19,7 +19,7 @@ export default (options) =>
 
 const transformResponse = (data, header) => {
     data = JSON.parse(data);
-    if (data.message) toastr.success(data.message);
+    if (data.message && !data.error) toastr.success(data.message);
     if (data.error) toastr.error(data.error);
     localStorage.setItem('token', header.newtoken);
 

@@ -27,13 +27,13 @@ export default function Footer() {
                     label="Asignaturas"
                     icon={<LibraryBooks />}
                 />
-                <BottomNavigationAction
+                {/* <BottomNavigationAction
                     value="/"
                     label="Home"
                     icon={<Home />}
-                />
+                /> */}
                 <BottomNavigationAction
-                    value="/documents"
+                    value="/profile"
                     label="Mi cuenta"
                     icon={<AccountCircleIcon />}
                 />
@@ -56,7 +56,6 @@ export default function Footer() {
                     icon={<Home />}
                 />
                 <BottomNavigationAction
-                    disabled
                     value="/profile"
                     label="Mi cuenta"
                     icon={<AccountCircleIcon />}
@@ -85,7 +84,6 @@ export default function Footer() {
                     icon={<Home />}
                 />
                 <BottomNavigationAction
-                    disabled
                     value="/profile"
                     label="Mi cuenta"
                     icon={<AccountCircleIcon />}

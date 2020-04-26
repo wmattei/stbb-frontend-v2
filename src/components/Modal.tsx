@@ -94,7 +94,7 @@ function Modal({
                 );
             });
         }
-        if (onCancel) {
+        if (cancelLabel) {
             buttons.push(
                 <Button
                     variant="outlined"
@@ -137,7 +137,10 @@ function Modal({
                     </IconButton>
                 )}
             </DialogTitle>
-            <div className={classes.content}>
+            <div
+                className={classes.content}
+                style={{ height: fullHeight ? '100vh' : 'auto' }}
+            >
                 <DialogContent>{children}</DialogContent>
             </div>
             <DialogActions>{renderActions()}</DialogActions>

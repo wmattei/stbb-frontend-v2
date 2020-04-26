@@ -1,22 +1,53 @@
-import React from 'react';
-import { splitFormProps, useField } from 'react-form';
-import { InputAdornment, TextField } from '@material-ui/core';
+import React, { useRef, useEffect } from 'react';
+import { InputAdornment, TextField, Box } from '@material-ui/core';
+import { useField } from '@unform/core';
 
-const RoundedField = React.forwardRef(
-    ({ label, startIcon, endIcon, ...props }: any, ref) => {
-        const [field, fieldOptions, rest] = splitFormProps(props);
+export default function RoundedField({
+    label,
+    name,
+    startIcon,
+    endIcon,
+    spacing,
+    type,
+    ...props
+}: any) {
+    const inputRef: any = useRef(null);
+    const {
+        fieldName,
+        defaultValue,
+        registerField,
+        error,
+        clearError,
+    } = useField(name);
 
-        const { getInputProps } = useField(field, fieldOptions);
+    useEffect(() => {
+        registerField({
+            name: fieldName,
+            ref: inputRef.current,
+            path: 'value',
+        });
+    }, [fieldName, registerField]);
 
-        return (
-            <>
+    return (
+        <>
+            <Box {...spacing}>
                 <TextField
+                    {...props}
+                    error={!!error}
+                    helperText={error}
                     style={{ width: '100%' }}
                     label={label}
                     variant="outlined"
-                    {...props}
+                    type={type}
+                    defaultValue={defaultValue}
+                    inputRef={inputRef}
+                    onFocus={clearError}
+                    InputLabelProps={
+                        type === 'date' && {
+                            shrink: true,
+                        }
+                    }
                     InputProps={{
-                        ...getInputProps({ ref, ...rest }),
                         startAdornment: startIcon && (
                             <InputAdornment position="start">
                                 {startIcon}
@@ -29,15 +60,7 @@ const RoundedField = React.forwardRef(
                         ),
                     }}
                 />
-                {/* <input {...getInputProps({ ref, ...rest })} />{' '}
-            {isValidating ? (
-                <em>Validating...</em>
-            ) : isTouched && error ? (
-                <em>{error}</em>
-            ) : null} */}
-            </>
-        );
-    }
-);
-
-export default RoundedField;
+            </Box>
+        </>
+    );
+}

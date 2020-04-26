@@ -3,11 +3,11 @@ import PageShell from './PageShell';
 import HomeView from '../Home/HomeView';
 import { Route, useHistory, useLocation } from 'react-router-dom';
 import SubjectView from '../Subject/SubjectView';
-import DocumentView from '../Document/DocumentView';
 import AuthApi from '../../api/authApi';
 import { useDispatch } from 'react-redux';
 import { setCurrentUser } from '../../store/actions/authActions';
 import ClassRoom from '../Home/ClassRoom';
+import Profile from '../User/Profile';
 
 export default function Root() {
     const dispatch = useDispatch();
@@ -47,8 +47,8 @@ export default function Root() {
             ></Route>
             <Route
                 exact
-                path="/documents"
-                component={PageShell(DocumentView)}
+                path="/profile"
+                component={PageShell(Profile)}
             ></Route>
         </div>
     );

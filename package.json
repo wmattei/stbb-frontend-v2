@@ -11,6 +11,8 @@
         "@testing-library/react": "^9.3.2",
         "@testing-library/user-event": "^7.1.2",
         "@types/react-addons-css-transition-group": "^15.0.5",
+        "@unform/core": "^2.1.0",
+        "@unform/web": "^2.1.0",
         "axios": "^0.19.2",
         "date-fns": "^2.9.0",
         "lodash": "^4.17.15",
@@ -18,14 +20,17 @@
         "react-addons-css-transition-group": "^15.6.2",
         "react-dom": "^16.13.1",
         "react-form": "^4.0.1",
+        "react-image-crop": "^8.6.2",
         "react-promise-tracker": "^2.1.0",
         "react-redux": "^7.2.0",
         "react-redux-toastr": "^7.6.4",
         "react-router-dom": "^5.1.2",
         "react-scripts": "3.4.1",
+        "react-use-key": "^1.0.4",
         "redux-devtools-extension": "^2.13.8",
         "redux-thunk": "^2.3.0",
-        "typescript": "~3.7.2"
+        "typescript": "~3.7.2",
+        "yup": "^0.28.4"
     },
     "scripts": {
         "start": "react-scripts start",
