@@ -9,6 +9,22 @@ class AuthApi {
         });
     }
 
+    static restore(email) {
+        return Axios({
+            method: 'POST',
+            url: '/auth/restore',
+            data: { email },
+        });
+    }
+    
+    static reset(data) {
+        return Axios({
+            method: 'POST',
+            url: '/auth/reset',
+            data,
+        });
+    }
+
     static whoami() {
         return Axios({
             method: 'GET',

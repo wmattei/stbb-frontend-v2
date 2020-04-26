@@ -23,11 +23,11 @@ export default function Root() {
             }
 
             if (result.status === 401) {
-                history.replace('/login');
+                history.replace('/auth/login');
             }
         };
 
-        if (location.pathname === '/login') return;
+        if (location.pathname.startsWith('/auth')) return;
         fetchMe();
         // eslint-disable-next-line
     }, []);
@@ -45,11 +45,7 @@ export default function Root() {
                 path="/subjects"
                 component={PageShell(SubjectView)}
             ></Route>
-            <Route
-                exact
-                path="/profile"
-                component={PageShell(Profile)}
-            ></Route>
+            <Route exact path="/profile" component={PageShell(Profile)}></Route>
         </div>
     );
 }

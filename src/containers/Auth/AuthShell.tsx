@@ -3,7 +3,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Box } from '@material-ui/core';
 
 const style = {
-    backgroundImage: 'url("assets/images/pwa-bg.png")',
+    backgroundImage: 'url("/assets/images/pwa-bg.png")',
     backgroundRepeat: 'no-repeat',
     backgroundPositionX: 'center',
     backgroundSize: '100% 100%',
@@ -19,8 +19,8 @@ const AuthShell = (Page: any) => {
                 <img
                     width={200}
                     alt="logo"
-                    src="assets/images/logo_simple.png"
-                />
+                    src="/assets/images/logo_simple.png"
+                /> 
             </Box>
             <div style={{ margin: 24, marginTop: 100 }}>
                 <ReactCSSTransitionGroup

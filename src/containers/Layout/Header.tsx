@@ -25,7 +25,7 @@ export default function Header() {
     const logOut = () => {
         dispatch(logout());
         localStorage.removeItem('token');
-        history.push('/login');
+        history.push('/auth/login');
     };
 
     return (

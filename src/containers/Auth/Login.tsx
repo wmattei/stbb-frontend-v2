@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import RoundedField from '../../components/RoundedInput';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
-import { Box, Button } from '@material-ui/core';
+import { Box, Button, withStyles } from '@material-ui/core';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import AuthApi from '../../api/authApi';
@@ -11,8 +11,9 @@ import { useDispatch } from 'react-redux';
 import { login, logout, setCurrentUser } from '../../store/actions/authActions';
 import { trackPromise } from 'react-promise-tracker';
 import { Form } from '@unform/web';
+import styles from './styles';
 
-export function Login() {
+function Login({ classes }) {
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -88,6 +89,16 @@ export function Login() {
                     </Button>
                 </Box>
             </Form>
+            <Box display="flex" justifyContent="center">
+                <span
+                    onClick={() => history.push('/auth/restore-password')}
+                    className={classes.link}
+                >
+                    Olvidé mi contraseña
+                </span>
+            </Box>
         </div>
     );
 }
+
+export default withStyles(styles)(Login);
