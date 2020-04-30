@@ -10,16 +10,25 @@ import SubjectList from './SubjectList';
 export default function SubjectView() {
     const [subjects, setSubjects] = useState([]);
     const currentUser = useSelector(getCurrentUser);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        console.log(currentUser);
+        setIsLoading(true);
         if (currentUser && currentUser.role === UserRoleEnum.ADMIN) {
-            trackPromise(ClassApi.findAll().then(mapSubjects));
+            trackPromise(
+                ClassApi.findAll().then((classes) => {
+                    mapSubjects(classes);
+                    setIsLoading(false);
+                })
+            );
             return;
         }
         if (currentUser && currentUser.role === UserRoleEnum.STUDENT) {
             trackPromise(
-                ClassApi.findByStudent(currentUser.id).then(mapSubjects)
+                ClassApi.findByStudent(currentUser.id).then((classes) => {
+                    setIsLoading(false);
+                    mapSubjects(classes);
+                })
             );
             return;
         }
@@ -37,5 +46,5 @@ export default function SubjectView() {
         );
     };
 
-    return <SubjectList subjects={subjects} />;
+    return <SubjectList subjects={subjects} isLoading={isLoading} />;
 }

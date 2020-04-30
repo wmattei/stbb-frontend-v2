@@ -11,9 +11,16 @@ type HomeProps = {
 
 function TeacherHome({ teacher }: HomeProps) {
     const [subjects, setSubjects] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        trackPromise(ClassApi.findByTeacher(teacher.id).then(mapSubjects));
+        setIsLoading(true);
+        trackPromise(
+            ClassApi.findByTeacher(teacher.id).then((classes) => {
+                setIsLoading(false);
+                mapSubjects(classes);
+            })
+        );
     }, [teacher]);
 
     const mapSubjects = (classes: Class[]) => {
@@ -28,7 +35,7 @@ function TeacherHome({ teacher }: HomeProps) {
         );
     };
 
-    return <SubjectList subjects={subjects} />;
+    return <SubjectList isLoading={isLoading} subjects={subjects} />;
 }
 
 export default TeacherHome;

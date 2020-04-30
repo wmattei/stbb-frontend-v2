@@ -4,6 +4,8 @@ import {
     TextField,
     withStyles,
     Typography,
+    Card,
+    CircularProgress,
 } from '@material-ui/core';
 import React, { useRef, useState } from 'react';
 import Modal from '../../components/Modal';
@@ -28,17 +30,20 @@ function UploadDocument({
 
     const [file, setFile] = useState<File | null>(null);
     const [description, setDescription] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const onUpload = (event: any) => {
         setFile(event.target.files[0]);
     };
 
     const save = () => {
+        setIsLoading(true);
         trackPromise(
             ClassApi.uploadDocument(file, description, classId).then((res) => {
                 setFile(null);
                 setDescription('');
                 onSave(res.data);
+                setIsLoading(true);
             })
         );
     };
@@ -49,26 +54,36 @@ function UploadDocument({
             size="xs"
             onCancel={close}
             title="Subir documento"
-            onConfirm={save}
+            onConfirm={!isLoading ? save : null}
         >
             <Box mt={2}>
                 <TextField
                     style={{ width: '100%' }}
                     variant="outlined"
                     multiline
+                    disabled={isLoading}
                     rows={4}
                     placeholder="Descripción"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                 />
                 <Box mt={1}>
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={() => upload.current.click()}
-                    >
-                        {file ? 'Cambiar archivo' : 'Elija el archivo'}
-                    </Button>
+                    {!isLoading && (
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={() => upload.current.click()}
+                        >
+                            {file ? 'Cambiar archivo' : 'Elija el archivo'}
+                        </Button>
+                    )}
+                    {isLoading && (
+                        <Card style={{ width: '100%' }}>
+                            <Box p={3} display="flex" justifyContent="center">
+                                <CircularProgress />
+                            </Box>
+                        </Card>
+                    )}
                     <Typography>{file && file?.name}</Typography>
                     <input
                         type="file"

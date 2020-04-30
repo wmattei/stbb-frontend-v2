@@ -1,4 +1,12 @@
-import { Avatar, Box, Button, Card, withStyles } from '@material-ui/core';
+import {
+    Avatar,
+    Box,
+    Button,
+    Card,
+    withStyles,
+    Typography,
+    CircularProgress,
+} from '@material-ui/core';
 import { Form } from '@unform/web';
 import React, { useEffect, useRef, useState } from 'react';
 import { trackPromise } from 'react-promise-tracker';
@@ -21,11 +29,12 @@ type ProfileProps = {
 
 function Profile({ classes }: ProfileProps) {
     const [croppedImg, setCroppedImg] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     useKey('ctrl+Enter', () => onSubmit(), null);
 
     const onSubmit = async (avatar = croppedImg) => {
         const values = formRef.current.getData();
-
+        setIsLoading(true);
         const schema = Yup.object().shape({
             email: Yup.string().email().required('E-mail es obligatório'),
             name: Yup.string().required('Nombre es obligatório'),
@@ -57,6 +66,7 @@ function Profile({ classes }: ProfileProps) {
                     passwordConfirmation: message,
                 });
                 toastr.error(message);
+                setIsLoading(false);
                 return;
             }
 
@@ -64,6 +74,8 @@ function Profile({ classes }: ProfileProps) {
                 UserApi.updateMe({
                     ...values,
                     avatar,
+                }).then((res) => {
+                    setIsLoading(false);
                 })
             );
         } catch (err) {
@@ -80,6 +92,7 @@ function Profile({ classes }: ProfileProps) {
                     )
                 );
             }
+            setIsLoading(false);
         }
     };
 
@@ -135,7 +148,8 @@ function Profile({ classes }: ProfileProps) {
                         onCropFinish={(url) => {
                             setCroppedImg(url);
                             setIsCropperOpen(false);
-                            onSubmit(url);
+                            if (formRef.current.getFieldValue('document'))
+                                onSubmit(url);
                         }}
                     />
                 )}
@@ -229,8 +243,21 @@ function Profile({ classes }: ProfileProps) {
                                     type="submit"
                                     variant="contained"
                                     color="primary"
+                                    disabled={isLoading}
                                 >
-                                    SALVAR
+                                    {!isLoading && (
+                                        <Typography>SALVAR</Typography>
+                                    )}
+                                    {isLoading && (
+                                        <CircularProgress
+                                            classes={{
+                                                colorSecondary:
+                                                    classes.circular,
+                                            }}
+                                            color="secondary"
+                                            size={20}
+                                        />
+                                    )}
                                 </Button>
                             </Box>
                         </Box>

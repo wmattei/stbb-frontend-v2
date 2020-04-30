@@ -3,7 +3,7 @@ import Modal from './Modal';
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 import { toBase64 } from '../helpers/fileHelpers';
-import { Box } from '@material-ui/core';
+import { Box, CircularProgress, Card } from '@material-ui/core';
 import { UserApi } from '../api/userApi';
 import { trackPromise } from 'react-promise-tracker';
 
@@ -17,6 +17,7 @@ function ImageCropper({ onClose, file, onCropFinish }: ImageCropperProps) {
     const [crop, setCrop] = useState<any>({ width: 50, height: 50, unit: '%' });
     const [originalSize, setOriginalSize] = useState<any>();
     const [src, setSrc] = useState<any>(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         toBase64(file).then(setSrc);
@@ -24,9 +25,11 @@ function ImageCropper({ onClose, file, onCropFinish }: ImageCropperProps) {
     }, []);
 
     const onCrop = () => {
+        setIsLoading(true);
         trackPromise(
             UserApi.uploadAvatar(file, { ...crop, ...originalSize }).then(
                 (res) => {
+                    setIsLoading(false);
                     onCropFinish(res.data);
                 }
             )
@@ -47,16 +50,28 @@ function ImageCropper({ onClose, file, onCropFinish }: ImageCropperProps) {
             confirmLabel="Salvar"
             cancelLabel="Cancelar"
             onCancel={onClose}
-            onConfirm={() => onCrop()}
+            onConfirm={!isLoading ? () => onCrop() : null}
         >
-            <Box display="flex" justifyContent="center" style={{ width: 350 }}>
-                <ReactCrop
-                    onImageLoaded={onImageLoaded}
-                    circularCrop
-                    src={src}
-                    crop={crop}
-                    onChange={(newCrop) => setCrop(newCrop)}
-                />
+            <Box
+                display="flex"
+                justifyContent="center"
+                style={{ maxHeight: '70%' }}
+            >
+                {!isLoading ? (
+                    <ReactCrop
+                        onImageLoaded={onImageLoaded}
+                        circularCrop
+                        src={src}
+                        crop={crop}
+                        onChange={(newCrop) => setCrop(newCrop)}
+                    />
+                ) : (
+                    <Card style={{ width: '100%' }}>
+                        <Box p={3} display="flex" justifyContent="center">
+                            <CircularProgress />
+                        </Box>
+                    </Card>
+                )}
             </Box>
         </Modal>
     );

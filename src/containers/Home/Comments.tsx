@@ -38,7 +38,7 @@ function Comments({ classes, onCancel, documentId }: CommentsProps) {
         CommentApi.createDocumentComment({
             text,
             ownerId: documentId,
-            ownerTable: 'stbb_file_model',
+            ownerTable: 'stbb_document_model',
         }).then(() => {
             search();
         });

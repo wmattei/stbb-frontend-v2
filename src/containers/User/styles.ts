@@ -3,6 +3,9 @@ const styles = (theme) => ({
         width: 150,
         height: 150,
     },
+    circular: {
+        color: 'white',
+    },
 });
 
 export default styles;

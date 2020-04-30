@@ -4,7 +4,7 @@ class CommentApi {
     static listCommentsByDocument(documentId, take, page) {
         return Axios({
             method: 'GET',
-            url: `/comments?ownerTable=stbb_file_model&ownerId=${documentId}&take=${take}&page=${page}`,
+            url: `/comments?ownerTable=stbb_document_model&ownerId=${documentId}&take=${take}&page=${page}`,
         }).then((res) => res.data);
     }
     

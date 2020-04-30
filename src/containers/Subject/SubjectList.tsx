@@ -12,6 +12,8 @@ import {
     Box,
     ListItemText,
     useTheme,
+    Card,
+    CircularProgress,
 } from '@material-ui/core';
 import { Subject } from '../../constants/types';
 import { useHistory } from 'react-router-dom';
@@ -22,13 +24,15 @@ import PeopleIcon from '@material-ui/icons/People';
 type SubjectListProps = {
     classes: any;
     subjects: Subject[];
+    isLoading: any;
 };
 
-function SubjectList({ classes, subjects }: SubjectListProps) {
+function SubjectList({ classes, subjects, isLoading }: SubjectListProps) {
     const history = useHistory();
     const [expandedSubject, setExpandedSubject] = useState<String | undefined>(
         undefined
     );
+
     const theme = useTheme();
 
     const renderSubjectCard = (subject: any, index) => {
@@ -94,14 +98,24 @@ function SubjectList({ classes, subjects }: SubjectListProps) {
         );
     };
 
-    return subjects.length ? (
-        <Box p={2}>{subjects.map(renderSubjectCard)}</Box>
-    ) : (
-        <NotFound
-            message="Ninguna asignatura encontrada!"
-            color="#ffc28e"
-            textColor="#44382f"
-        />
+    if (subjects.length && !isLoading)
+        return <Box p={2}>{subjects.map(renderSubjectCard)}</Box>;
+    if (!subjects.length && !isLoading)
+        return (
+            <NotFound
+                message="Ninguna asignatura encontrada!"
+                color="#ffc28e"
+                textColor="#44382f"
+            />
+        );
+    return (
+        <Box p={3} width="100%" display="flex" justifyContent="center">
+            <Card style={{width: '100%'}}>
+                <Box p={3} display="flex" justifyContent="center">
+                    <CircularProgress />
+                </Box>
+            </Card>
+        </Box>
     );
 }
 

@@ -6,6 +6,8 @@ import {
     Tabs,
     Typography,
     withStyles,
+    Card,
+    CircularProgress,
 } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
 import React, { useEffect, useState } from 'react';
@@ -37,6 +39,7 @@ function ClassRoom({ classes }: ClassRoomProps) {
     const [deletedRequestDocumentId, setDeletedRequestDocumentId] = useState(
         null
     );
+    const [isLoading, setIsLoading] = useState(false);
 
     const currentUser = useSelector(getCurrentUser);
 
@@ -47,11 +50,13 @@ function ClassRoom({ classes }: ClassRoomProps) {
     const routeParams = useParams<any>();
 
     useEffect(() => {
+        setIsLoading(true);
         trackPromise(
             ClassApi.findById(routeParams.classId).then((c) => {
                 dispatch(setTitle(`${c.subject.name} - ${c.name}`));
                 dispatch(setBackButtonVisibility(true));
                 setCurrentClass(c);
+                setIsLoading(false);
             })
         );
         // eslint-disable-next-line
@@ -115,7 +120,7 @@ function ClassRoom({ classes }: ClassRoomProps) {
             </AppBar>
             {currentTab === 'documents' && (
                 <Box p={2}>
-                    {currentClass?.documents?.length ? (
+                    {!!currentClass?.documents?.length && !isLoading && (
                         <DocumentList
                             documents={currentClass?.documents?.sort(
                                 documentSorter
@@ -123,7 +128,8 @@ function ClassRoom({ classes }: ClassRoomProps) {
                             onDelete={onDeleteRequest}
                             isTeacher={isTeacher}
                         />
-                    ) : (
+                    )}
+                    {!currentClass?.documents?.length && !isLoading && (
                         <Box p={2}>
                             <AlertCard
                                 backgroundColor="#feb32a40"
@@ -145,6 +151,24 @@ function ClassRoom({ classes }: ClassRoomProps) {
                                     </Typography>
                                 )}
                             </AlertCard>
+                        </Box>
+                    )}
+                    {!currentClass?.documents?.length && isLoading && (
+                        <Box
+                            m={2}
+                            width="100%"
+                            display="flex"
+                            justifyContent="center"
+                        >
+                            <Card style={{ width: '100%' }}>
+                                <Box
+                                    p={3}
+                                    display="flex"
+                                    justifyContent="center"
+                                >
+                                    <CircularProgress />
+                                </Box>
+                            </Card>
                         </Box>
                     )}
                     {isTeacher && (
