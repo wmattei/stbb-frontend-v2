@@ -17,6 +17,7 @@ export default function Root() {
     useEffect(() => {
         const fetchMe = async () => {
             const result = await AuthApi.whoami();
+            console.log(result);
 
             if (result.status === 200 && result.data) {
                 dispatch(setCurrentUser(result.data.data));

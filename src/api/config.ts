@@ -3,7 +3,7 @@ import { toastr } from 'react-redux-toastr';
 
 const config = {
     // backendUrl: 'https://staging.api.collums.co.uk',
-    backendUrl: 'http://localhost:3000/v1/api',
+    backendUrl: process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000/v1/api',
 };
 
 export default (options) =>

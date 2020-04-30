@@ -32,6 +32,7 @@ function SubjectList({ classes, subjects }: SubjectListProps) {
     const theme = useTheme();
 
     const renderSubjectCard = (subject: any, index) => {
+        console.log(subject);
         return (
             <ExpansionPanel
                 className={classes.subjectCard}
@@ -44,7 +45,12 @@ function SubjectList({ classes, subjects }: SubjectListProps) {
                 key={index}
             >
                 <ExpansionPanelSummary expandIcon={<ArrowForwardIcon />}>
-                    <Typography>{subject.name}</Typography>
+                    <Box display="flex" flexDirection="column">
+                        <Typography>{subject.name}</Typography>
+                        <Typography style={{ color: 'gray' }}>
+                            ({subject.classes[0].teacher.name})
+                        </Typography>
+                    </Box>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails classes={{ root: classes.expansion }}>
                     <List component="nav" style={{ width: '100%' }}>

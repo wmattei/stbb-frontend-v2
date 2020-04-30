@@ -12,6 +12,7 @@ export default function SubjectView() {
     const currentUser = useSelector(getCurrentUser);
 
     useEffect(() => {
+        console.log(currentUser);
         if (currentUser && currentUser.role === UserRoleEnum.ADMIN) {
             trackPromise(ClassApi.findAll().then(mapSubjects));
             return;
