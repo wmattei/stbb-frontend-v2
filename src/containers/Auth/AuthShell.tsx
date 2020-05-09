@@ -18,6 +18,7 @@ const AuthShell = (Page: any) => {
             <Box display="flex" flexGrow={1} justifyContent="center">
                 <img
                     width={200}
+                    height={200}
                     alt="logo"
                     src="/assets/images/logo_simple.png"
                 /> 
