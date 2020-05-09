@@ -10,6 +10,7 @@ import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 import ReduxToastr from 'react-redux-toastr';
 import { LinearProgress } from '@material-ui/core';
 import { usePromiseTracker } from 'react-promise-tracker';
+import { version } from '../package.json';
 
 const LoadingInterceptor = (props) => {
     const { promiseInProgress } = usePromiseTracker();
@@ -42,3 +43,4 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+console.log(version);
