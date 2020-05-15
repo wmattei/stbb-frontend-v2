@@ -22,4 +22,11 @@ export class UserApi {
             data,
         }).then((res) => res.data);
     }
+
+    static getStudentsByClassId(classId) {
+        return Axios({
+            method: 'GET',
+            url: `/users/list-by-class/${classId}`,
+        }).then((res) => res.data);
+    }
 }

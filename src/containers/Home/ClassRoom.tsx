@@ -26,6 +26,7 @@ import styles from './styles';
 import UploadDocument from './UploadDocument';
 import { getCurrentUser } from '../../store/selectors/authSelector';
 import { UserRoleEnum } from '../../constants/types';
+import StudentList from '../User/StudentList';
 
 type ClassRoomProps = {
     classes: any;
@@ -110,7 +111,6 @@ function ClassRoom({ classes }: ClassRoomProps) {
                         value="documents"
                     />
                     <Tab
-                        disabled
                         label={`${
                             isTeacher ? 'Alumnos' : 'Compañeros'
                         } (${getTotalStudents()})`}
@@ -197,7 +197,9 @@ function ClassRoom({ classes }: ClassRoomProps) {
                     />
                 </Box>
             )}
-            {currentTab === 'students' && <div>Alumnos</div>}
+            {currentTab === 'students' && (
+                <StudentList classId={currentClass.id} />
+            )}
         </>
     );
 }

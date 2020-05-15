@@ -35,8 +35,13 @@ function SubjectList({ classes, subjects, isLoading }: SubjectListProps) {
 
     const theme = useTheme();
 
+    const handleClickSingleClass = (subject) => {
+        if (subject.classes.length === 1) {
+            history.push(`/class/${subject.classes[0].id}`);
+        }
+    };
+
     const renderSubjectCard = (subject: any, index) => {
-        console.log(subject);
         return (
             <ExpansionPanel
                 className={classes.subjectCard}
@@ -48,7 +53,7 @@ function SubjectList({ classes, subjects, isLoading }: SubjectListProps) {
                 }
                 key={index}
             >
-                <ExpansionPanelSummary expandIcon={<ArrowForwardIcon />}>
+                <ExpansionPanelSummary expandIcon={<ArrowForwardIcon />} onClick={() => handleClickSingleClass(subject)}>
                     <Box display="flex" flexDirection="column">
                         <Typography>{subject.name}</Typography>
                         <Typography style={{ color: 'gray' }}>
@@ -110,7 +115,7 @@ function SubjectList({ classes, subjects, isLoading }: SubjectListProps) {
         );
     return (
         <Box p={3} width="100%" display="flex" justifyContent="center">
-            <Card style={{width: '100%'}}>
+            <Card style={{ width: '100%' }}>
                 <Box p={3} display="flex" justifyContent="center">
                     <CircularProgress />
                 </Box>
