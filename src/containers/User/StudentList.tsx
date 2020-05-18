@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import styles from './styles';
-import { withStyles, Box, Card } from '@material-ui/core';
+import { Box, withStyles } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
 import { UserApi } from '../../api/userApi';
 import GradeForm from './GradeForm';
+import styles from './styles';
 
 type StudentListProps = {
     classes: any;
@@ -16,12 +16,12 @@ function StudentList({ classes, classId }: StudentListProps) {
         UserApi.getStudentsByClassId(classId).then((res) => {
             setStudents(res.data);
         });
-    }, []);
+    }, [classId]);
 
     return (
         <Box p={3}>
             {students.map((student) => (
-                <GradeForm student={student} />
+                <GradeForm student={student} classId={classId} />
             ))}
         </Box>
     );

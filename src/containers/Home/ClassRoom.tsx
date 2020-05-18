@@ -110,12 +110,12 @@ function ClassRoom({ classes }: ClassRoomProps) {
                         })`}
                         value="documents"
                     />
-                    <Tab
-                        label={`${
-                            isTeacher ? 'Alumnos' : 'Compañeros'
-                        } (${getTotalStudents()})`}
-                        value="students"
-                    />
+                    {isTeacher && (
+                        <Tab
+                            label={`${'Alumnos'} (${getTotalStudents()})`}
+                            value="students"
+                        />
+                    )}
                 </Tabs>
             </AppBar>
             {currentTab === 'documents' && (

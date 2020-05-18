@@ -15,11 +15,13 @@ import {
     Card,
     CircularProgress,
 } from '@material-ui/core';
-import { Subject } from '../../constants/types';
+import { Subject, UserRoleEnum } from '../../constants/types';
 import { useHistory } from 'react-router-dom';
 import NotFound from '../../components/NotFound';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import PeopleIcon from '@material-ui/icons/People';
+import { useSelector } from 'react-redux';
+import { getCurrentUser } from '../../store/selectors/authSelector';
 
 type SubjectListProps = {
     classes: any;
@@ -33,6 +35,10 @@ function SubjectList({ classes, subjects, isLoading }: SubjectListProps) {
         undefined
     );
 
+    const currentUser = useSelector(getCurrentUser);
+
+    const isStudent = currentUser.role === UserRoleEnum.STUDENT;
+
     const theme = useTheme();
 
     const handleClickSingleClass = (subject) => {
@@ -41,10 +47,31 @@ function SubjectList({ classes, subjects, isLoading }: SubjectListProps) {
         }
     };
 
+    const getColor = (subject: any) => {
+        const c = subject.classes[0];
+
+        if (!isStudent) return '#def0ff';
+        if (c.validated || c.grade >= 2) return '#a5e8a5cf';
+        if (!c.validated && (c.grade === null || c.grade === undefined))
+            return '#def0ff';
+        if ((!c.grade || c.grade < 2) && !c.validated) return '#ffa7a7';
+        else return '#def0ff';
+    };
+
+    const getGrade = (subject) => {
+        const c = subject.classes[0];
+        if (c.validated) return `Calificación: Validado por otra institución`
+        if (c.grade >= 2) return `Calificación: ${c.grade} - Aprobado`;
+        if ((c.grade === null || c.grade === undefined))
+            return 'A cursar';
+        if (!c.grade || c.grade < 2) return `Calificación: ${c.grade} - Reprobado`
+    };
+
     const renderSubjectCard = (subject: any, index) => {
         return (
             <ExpansionPanel
                 className={classes.subjectCard}
+                style={{ background: getColor(subject) }}
                 expanded={expandedSubject === subject.id}
                 onChange={() =>
                     setExpandedSubject((id) =>
@@ -53,12 +80,20 @@ function SubjectList({ classes, subjects, isLoading }: SubjectListProps) {
                 }
                 key={index}
             >
-                <ExpansionPanelSummary expandIcon={<ArrowForwardIcon />} onClick={() => handleClickSingleClass(subject)}>
+                <ExpansionPanelSummary
+                    expandIcon={<ArrowForwardIcon />}
+                    onClick={() => handleClickSingleClass(subject)}
+                >
                     <Box display="flex" flexDirection="column">
                         <Typography>{subject.name}</Typography>
                         <Typography style={{ color: 'gray' }}>
                             ({subject.classes[0].teacher.name})
                         </Typography>
+                        {isStudent && (
+                            <Typography>
+                                {getGrade(subject)}
+                            </Typography>
+                        )}
                     </Box>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails classes={{ root: classes.expansion }}>

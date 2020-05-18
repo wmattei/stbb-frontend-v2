@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { trackPromise } from 'react-promise-tracker';
 import { useSelector } from 'react-redux';
 import ClassApi from '../../api/classApi';
-import { Class, UserRoleEnum } from '../../constants/types';
+import { UserRoleEnum } from '../../constants/types';
 import { getCurrentUser } from '../../store/selectors/authSelector';
 import SubjectList from './SubjectList';
 
@@ -25,16 +25,34 @@ export default function SubjectView() {
         }
         if (currentUser && currentUser.role === UserRoleEnum.STUDENT) {
             trackPromise(
-                ClassApi.findByStudent(currentUser.id).then((classes) => {
+                ClassApi.findByStudent(currentUser.id).then((res) => {
                     setIsLoading(false);
-                    mapSubjects(classes);
+                    mapSubjectsByStudent(res.data);
                 })
             );
             return;
         }
     }, [currentUser]);
 
-    const mapSubjects = (classes: Class[]) => {
+    const mapSubjectsByStudent = (classes: any[]) => {
+        const subIds = _.uniqBy(classes.map((c) => c.subjectId));
+        setSubjects(
+            subIds.map((subId) => {
+                const subject = {
+                    id: classes.find((c) => c.subjectId === subId)?.subjectId,
+                    name: classes.find((c) => c.subjectId === subId)?.subject,
+                };
+                return {
+                    ...subject,
+                    classes: classes
+                        .filter((c) => c.subjectId === subId)
+                        .map((c) => ({ ...c, teacher: { name: c.teacher } })),
+                };
+            })
+        );
+    };
+
+    const mapSubjects = (classes: any[]) => {
         const subIds = _.uniqBy(classes.map((c) => c.subject.id));
         setSubjects(
             subIds.map((subId) => {
@@ -45,6 +63,5 @@ export default function SubjectView() {
             })
         );
     };
-
     return <SubjectList subjects={subjects} isLoading={isLoading} />;
 }

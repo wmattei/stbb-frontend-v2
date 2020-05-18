@@ -29,4 +29,12 @@ export class UserApi {
             url: `/users/list-by-class/${classId}`,
         }).then((res) => res.data);
     }
+    
+    static saveGrade(data){
+        return Axios({
+            method: 'POST',
+            url: '/users/change-grade',
+            data
+        })
+    }
 }
