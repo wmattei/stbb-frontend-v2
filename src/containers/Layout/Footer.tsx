@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { UserRoleEnum } from '../../constants/types';
 import { getCurrentUser } from '../../store/selectors/authSelector';
+import GroupIcon from '@material-ui/icons/Group';
 
 export default function Footer() {
     const history = useHistory();
@@ -25,7 +26,16 @@ export default function Footer() {
                 <BottomNavigationAction
                     value="/subjects"
                     label="Asignaturas"
-                    icon={<LibraryBooks />}
+                    icon={
+                        <LibraryBooks
+                            style={{
+                                color:
+                                    route.pathname !== '/subjects'
+                                        ? 'black'
+                                        : '#0277BD',
+                            }}
+                        />
+                    }
                 />
                 {/* <BottomNavigationAction
                     value="/"
@@ -35,7 +45,16 @@ export default function Footer() {
                 <BottomNavigationAction
                     value="/profile"
                     label="Mi cuenta"
-                    icon={<AccountCircleIcon />}
+                    icon={
+                        <AccountCircleIcon
+                            style={{
+                                color:
+                                    route.pathname !== '/profile'
+                                        ? 'black'
+                                        : '#0277BD',
+                            }}
+                        />
+                    }
                 />
             </BottomNavigation>
         );
@@ -53,12 +72,30 @@ export default function Footer() {
                 <BottomNavigationAction
                     value="/"
                     label="Home"
-                    icon={<Home />}
+                    icon={
+                        <Home
+                            style={{
+                                color:
+                                    route.pathname !== '/'
+                                        ? 'black'
+                                        : '#0277BD',
+                            }}
+                        />
+                    }
                 />
                 <BottomNavigationAction
                     value="/profile"
                     label="Mi cuenta"
-                    icon={<AccountCircleIcon />}
+                    icon={
+                        <AccountCircleIcon
+                            style={{
+                                color:
+                                    route.pathname !== '/profile'
+                                        ? 'black'
+                                        : '#0277BD',
+                            }}
+                        />
+                    }
                 />
             </BottomNavigation>
         );
@@ -74,19 +111,61 @@ export default function Footer() {
                 showLabels
             >
                 <BottomNavigationAction
-                    value="/subjects"
-                    label="Asignaturas"
-                    icon={<LibraryBooks />}
-                />
-                <BottomNavigationAction
                     value="/"
                     label="Home"
-                    icon={<Home />}
+                    icon={
+                        <Home
+                            style={{
+                                color:
+                                    route.pathname !== '/'
+                                        ? 'black'
+                                        : '#0277BD',
+                            }}
+                        />
+                    }
+                />
+                <BottomNavigationAction
+                    value="/subjects"
+                    label="Asignaturas"
+                    icon={
+                        <LibraryBooks
+                            style={{
+                                color:
+                                    route.pathname !== '/subjects'
+                                        ? 'black'
+                                        : '#0277BD',
+                            }}
+                        />
+                    }
+                />
+
+                <BottomNavigationAction
+                    value="/students"
+                    label="Alumnos"
+                    icon={
+                        <GroupIcon
+                            style={{
+                                color:
+                                    route.pathname !== '/students'
+                                        ? 'black'
+                                        : '#0277BD',
+                            }}
+                        />
+                    }
                 />
                 <BottomNavigationAction
                     value="/profile"
                     label="Mi cuenta"
-                    icon={<AccountCircleIcon />}
+                    icon={
+                        <AccountCircleIcon
+                            style={{
+                                color:
+                                    route.pathname !== '/profile'
+                                        ? 'black'
+                                        : '#0277BD',
+                            }}
+                        />
+                    }
                 />
             </BottomNavigation>
         );

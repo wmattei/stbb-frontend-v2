@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { setCurrentUser } from '../../store/actions/authActions';
 import ClassRoom from '../Home/ClassRoom';
 import Profile from '../User/Profile';
+import StudentListHistory from '../User/StudentListHistory';
 
 export default function Root() {
     const dispatch = useDispatch();
@@ -17,7 +18,6 @@ export default function Root() {
     useEffect(() => {
         const fetchMe = async () => {
             const result = await AuthApi.whoami();
-            console.log(result);
 
             if (result.status === 200 && result.data) {
                 dispatch(setCurrentUser(result.data.data));
@@ -47,6 +47,11 @@ export default function Root() {
                 component={PageShell(SubjectView)}
             ></Route>
             <Route exact path="/profile" component={PageShell(Profile)}></Route>
+            <Route
+                exact
+                path="/students"
+                component={PageShell(StudentListHistory)}
+            ></Route>
         </div>
     );
 }
