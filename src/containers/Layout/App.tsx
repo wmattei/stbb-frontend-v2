@@ -1,4 +1,8 @@
-import { MuiThemeProvider, withStyles } from '@material-ui/core';
+import {
+    MuiThemeProvider,
+    withStyles,
+    StylesProvider,
+} from '@material-ui/core';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -28,7 +32,7 @@ function App({ children, classes }: AppProps) {
                         style={
                             isAuthenticated
                                 ? { marginTop: 60, marginBottom: 55 }
-                                : {}
+                                : { height: '100vh' }
                         }
                         className={classes.content}
                     >

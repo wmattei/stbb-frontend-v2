@@ -35,21 +35,21 @@ export default function Root() {
 
     return (
         <div>
-            <Route exact path="/" component={PageShell(HomeView)}></Route>
+            <Route exact path="/portal" component={PageShell(HomeView)}></Route>
             <Route
                 exact
-                path="/class/:classId"
+                path="/portal/class/:classId"
                 component={PageShell(ClassRoom)}
             ></Route>
             <Route
                 exact
-                path="/subjects"
+                path="/portal/subjects"
                 component={PageShell(SubjectView)}
             ></Route>
-            <Route exact path="/profile" component={PageShell(Profile)}></Route>
+            <Route exact path="/portal/profile" component={PageShell(Profile)}></Route>
             <Route
                 exact
-                path="/students"
+                path="/portal/students"
                 component={PageShell(StudentListHistory)}
             ></Route>
         </div>

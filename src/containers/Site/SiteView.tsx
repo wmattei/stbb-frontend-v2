@@ -1,5 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
+import SiteHeader from './SiteHeader';
+import SiteVisionMision from './SiteVisionMision';
+import { Box } from '@material-ui/core';
+import SiteHistory from './SiteHistory';
+import SiteTeachers from './SiteTeachers';
+import SiteSubject from './SiteSubject';
 
 export function SiteView() {
-    return <p>Site</p>;
+    const [openVision, setOpenVision] = useState(false);
+    const [openMision, setOpenMision] = useState(false);
+
+    return (
+        <div>
+            <SiteHeader
+                toggleVision={() => {
+                    setOpenVision(!openVision);
+                    setOpenMision(false);
+                }}
+                toggleMision={() => {
+                    setOpenMision(!openMision);
+                    setOpenVision(false);
+                }}
+            />
+            <Box style={{ height: 500 }}>
+                <SiteVisionMision
+                    openVision={openVision}
+                    openMision={openMision}
+                />
+                <SiteHistory />
+                <SiteTeachers />
+                <SiteSubject />
+            </Box>
+        </div>
+    );
 }

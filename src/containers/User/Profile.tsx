@@ -30,7 +30,7 @@ type ProfileProps = {
 function Profile({ classes }: ProfileProps) {
     const [croppedImg, setCroppedImg] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    useKey('ctrl+Enter', () => onSubmit(), null);
+    useKey('ctrl+Enter', () => onSubmit(), {});
 
     const onSubmit = async (avatar = croppedImg) => {
         const values = formRef.current.getData();

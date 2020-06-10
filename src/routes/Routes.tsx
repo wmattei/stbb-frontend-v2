@@ -11,7 +11,11 @@ export default function Routes() {
     return (
         <Switch>
             <div className="App">
-                <Route exact path="/auth/login" component={AuthShell(Login)}></Route>
+                <Route
+                    exact
+                    path="/auth/login"
+                    component={AuthShell(Login)}
+                ></Route>
                 <Route
                     exact
                     path="/auth/restore-password"
@@ -24,7 +28,8 @@ export default function Routes() {
                 ></Route>
                 <Route exact path="/site" component={SiteView}></Route>
 
-                <Route path="/" component={Root}></Route>
+                <Route path="/portal" component={Root}></Route>
+                <Route exact path="/" component={SiteView}></Route>
             </div>
         </Switch>
     );

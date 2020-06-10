@@ -44,4 +44,18 @@ export class UserApi {
             url: '/users/students',
         }).then((res) => res.data);
     }
+    
+    static getTeachers() {
+        return Axios({
+            method: 'GET',
+            url: '/users/teachers',
+        }).then((res) => res.data.data);
+    }
+    
+    static getSubjects() {
+        return Axios({
+            method: 'GET',
+            url: '/subjects',
+        }).then((res) => res.data.data);
+    }
 }

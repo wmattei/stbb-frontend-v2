@@ -24,13 +24,13 @@ export default function Footer() {
                 showLabels
             >
                 <BottomNavigationAction
-                    value="/subjects"
+                    value="/portal/subjects"
                     label="Asignaturas"
                     icon={
                         <LibraryBooks
                             style={{
                                 color:
-                                    route.pathname !== '/subjects'
+                                    route.pathname !== '/portal/subjects'
                                         ? 'black'
                                         : '#0277BD',
                             }}
@@ -43,13 +43,13 @@ export default function Footer() {
                     icon={<Home />}
                 /> */}
                 <BottomNavigationAction
-                    value="/profile"
+                    value="/portal/profile"
                     label="Mi cuenta"
                     icon={
                         <AccountCircleIcon
                             style={{
                                 color:
-                                    route.pathname !== '/profile'
+                                    route.pathname !== '/portal/profile'
                                         ? 'black'
                                         : '#0277BD',
                             }}
@@ -70,13 +70,13 @@ export default function Footer() {
                 showLabels
             >
                 <BottomNavigationAction
-                    value="/"
+                    value="/portal"
                     label="Home"
                     icon={
                         <Home
                             style={{
                                 color:
-                                    route.pathname !== '/'
+                                    route.pathname !== '/portal'
                                         ? 'black'
                                         : '#0277BD',
                             }}
@@ -84,13 +84,13 @@ export default function Footer() {
                     }
                 />
                 <BottomNavigationAction
-                    value="/profile"
+                    value="/portal/profile"
                     label="Mi cuenta"
                     icon={
                         <AccountCircleIcon
                             style={{
                                 color:
-                                    route.pathname !== '/profile'
+                                    route.pathname !== '/portal/profile'
                                         ? 'black'
                                         : '#0277BD',
                             }}
@@ -111,13 +111,13 @@ export default function Footer() {
                 showLabels
             >
                 <BottomNavigationAction
-                    value="/"
+                    value="/portal"
                     label="Home"
                     icon={
                         <Home
                             style={{
                                 color:
-                                    route.pathname !== '/'
+                                    route.pathname !== '/portal'
                                         ? 'black'
                                         : '#0277BD',
                             }}
@@ -125,13 +125,13 @@ export default function Footer() {
                     }
                 />
                 <BottomNavigationAction
-                    value="/subjects"
+                    value="/portal/subjects"
                     label="Asignaturas"
                     icon={
                         <LibraryBooks
                             style={{
                                 color:
-                                    route.pathname !== '/subjects'
+                                    route.pathname !== '/portal/subjects'
                                         ? 'black'
                                         : '#0277BD',
                             }}
@@ -140,13 +140,13 @@ export default function Footer() {
                 />
 
                 <BottomNavigationAction
-                    value="/students"
+                    value="/portal/students"
                     label="Alumnos"
                     icon={
                         <GroupIcon
                             style={{
                                 color:
-                                    route.pathname !== '/students'
+                                    route.pathname !== '/portal/students'
                                         ? 'black'
                                         : '#0277BD',
                             }}
@@ -154,13 +154,13 @@ export default function Footer() {
                     }
                 />
                 <BottomNavigationAction
-                    value="/profile"
+                    value="/portal/profile"
                     label="Mi cuenta"
                     icon={
                         <AccountCircleIcon
                             style={{
                                 color:
-                                    route.pathname !== '/profile'
+                                    route.pathname !== '/portal/profile'
                                         ? 'black'
                                         : '#0277BD',
                             }}

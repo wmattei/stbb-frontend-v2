@@ -43,7 +43,7 @@ function SubjectList({ classes, subjects, isLoading }: SubjectListProps) {
 
     const handleClickSingleClass = (subject) => {
         if (subject.classes.length === 1) {
-            history.push(`/class/${subject.classes[0].id}`);
+            history.push(`/portal/class/${subject.classes[0].id}`);
         }
     };
 
@@ -103,7 +103,7 @@ function SubjectList({ classes, subjects, isLoading }: SubjectListProps) {
                                 key={c.id}
                                 button
                                 style={{ width: '100%' }}
-                                onClick={() => history.push(`/class/${c.id}`)}
+                                onClick={() => history.push(`/portal/class/${c.id}`)}
                             >
                                 <ListItemIcon>
                                     <PeopleIcon />

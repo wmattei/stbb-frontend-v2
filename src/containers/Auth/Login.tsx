@@ -40,7 +40,7 @@ function Login({ classes }) {
                 localStorage.setItem('token', res.data.data.accessToken);
                 dispatch(login());
                 fetchMe();
-                history.push('/');
+                history.push('/portal');
             })
         );
     };
@@ -90,6 +90,13 @@ function Login({ classes }) {
                 </Box>
             </Form>
             <Box display="flex" justifyContent="center">
+                <span
+                    onClick={() => history.push('/')}
+                    className={classes.link}
+                    style={{ marginRight: 10 }}
+                >
+                    Volver
+                </span>
                 <span
                     onClick={() => history.push('/auth/restore-password')}
                     className={classes.link}
