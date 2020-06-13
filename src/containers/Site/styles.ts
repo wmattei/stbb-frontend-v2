@@ -45,6 +45,10 @@ const styles = createStyles({
         width: '80%',
         background: 'transparent',
         boxShadow: 'none'
+    },
+    appTitle: {
+        color: 'white',
+        fontSize: 40,
     }
 });
 

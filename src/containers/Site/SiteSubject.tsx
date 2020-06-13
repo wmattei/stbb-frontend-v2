@@ -82,7 +82,18 @@ function SiteSubject({ classes }: SiteSubjectProps) {
             <Box p={3} display="flex" width="100%" justifyContent="center">
                 <b>Asignaturas</b>
             </Box>
-            <Pie data={data} />
+            <Pie
+                options={{
+                    tooltips: {
+                        callbacks: {
+                            label: function (tooltipItems, data) {
+                                return data.labels[tooltipItems.index];
+                            },
+                        },
+                    },
+                }}
+                data={data}
+            />
         </Box>
     );
 }
