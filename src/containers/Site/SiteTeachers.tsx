@@ -53,25 +53,27 @@ function SiteTeachers({ classes }: SiteTeachersProps) {
                 outsideChevron
                 chevronWidth={40}
             >
-                {teachers.map((teacher: any) => (
-                    <Card style={{ marginBottom: 15 }}>
-                        {/* <CardActionArea> */}
-                        <Avatar
-                            variant="square"
-                            className={classes.avatar}
-                            src={teacher.avatar}
-                        />
-                        <Box
-                            display="flex"
-                            width="100%"
-                            p={2}
-                            justifyContent="center"
-                        >
-                            <b style={{ fontSize: 18 }}>{teacher.name}</b>
-                        </Box>
-                        {/* </CardActionArea> */}
-                    </Card>
-                ))}
+                {teachers
+                    .filter((t: any) => t.isActive)
+                    .map((teacher: any) => (
+                        <Card style={{ marginBottom: 15 }}>
+                            {/* <CardActionArea> */}
+                            <Avatar
+                                variant="square"
+                                className={classes.avatar}
+                                src={teacher.avatar}
+                            />
+                            <Box
+                                display="flex"
+                                width="100%"
+                                p={2}
+                                justifyContent="center"
+                            >
+                                <b style={{ fontSize: 18 }}>{teacher.name}</b>
+                            </Box>
+                            {/* </CardActionArea> */}
+                        </Card>
+                    ))}
             </ItemsCarousel>
         </Box>
     );

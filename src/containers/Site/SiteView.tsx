@@ -5,6 +5,7 @@ import { Box } from '@material-ui/core';
 import SiteHistory from './SiteHistory';
 import SiteTeachers from './SiteTeachers';
 import SiteSubject from './SiteSubject';
+import SiteContact from './SiteContact';
 
 export function SiteView() {
     const [openVision, setOpenVision] = useState(false);
@@ -29,6 +30,7 @@ export function SiteView() {
                 />
                 <SiteHistory />
                 <SiteTeachers />
+                <SiteContact />
                 <SiteSubject />
             </Box>
         </div>

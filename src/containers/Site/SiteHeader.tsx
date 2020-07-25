@@ -37,9 +37,13 @@ function SiteHeader({ classes, toggleVision, toggleMision }: SiteHeaderProps) {
                     src="/assets/images/logo_simple.png"
                     alt="STBB"
                 />
-                <div style={{marginLeft: 30}}>
-                    <Typography className={classes.appTitle}>S.T.B.B</Typography>
-                    <span style={{color: 'white'}}>Seminario Teológico Bautista Betel</span>
+                <div style={{ marginLeft: 30 }}>
+                    <Typography className={classes.appTitle}>
+                        S.T.B.B
+                    </Typography>
+                    <span style={{ color: 'white' }}>
+                        Seminario Teológico Bautista Betel
+                    </span>
                 </div>
             </Box>
             <Box
